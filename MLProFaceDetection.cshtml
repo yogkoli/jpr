@@ -1,0 +1,244 @@
+﻿@{
+    ViewData["Title"] = "Face Detection";
+    ViewData["ViewId"] = "MLProFaceDetection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="active">@ViewData["Title"]@ViewData["flag"]</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+
+        <div class="row">
+
+            <div class="col-md">
+                <div class="card">
+                    <div class="card-header" style="background-color:darkgreen;color:white;">
+                        <h4>@ViewData["Title"]</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="default-tab">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="default-nav-home-tab" data-toggle="tab" href="#default-nav-home" role="tab" aria-controls="default-nav-home" aria-selected="true">Detect Face</a>
+                                    <a class="nav-item nav-link" id="default-nav-profile-tab" data-toggle="tab" href="#default-nav-profile" role="tab" aria-controls="default-nav-profile" aria-selected="false">View Training Dataset</a>
+                                    <a class="nav-item nav-link" id="default-nav-notes-tab" data-toggle="tab" href="#default-nav-notes" role="tab" aria-controls="default-nav-notes" aria-selected="false">Description</a>
+                                </div>
+                            </nav>
+
+                            <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="default-nav-home" role="tabpanel" aria-labelledby="default-nav-home-tab">
+
+                                    <p>"Uplaod Images with Human and detect multiple Face"</p>
+
+                                    <div class="col-md">
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <strong>Upload File</strong>
+                                                <small>
+                                                    Upload file to convert into black and white
+                                                </small>
+                                            </div>
+                                            <div class="card-body">
+                                                <div>
+                                                    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="UploadFiles/@ViewData["ViewId"]">
+                                                        <div>
+                                                            <input type="file" name="files" multiple style="width:600px;border:inset;" />
+                                                            <input type="submit" value="Upload" />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div><!-- /# browse card -->
+
+                                    </div> <!-- browse row -->
+
+                                    <div class="col-md-6">
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <strong>Input File</strong>
+                                                <small>
+                                                    Preview of original image
+                                                </small>
+                                            </div>
+                                            <div class="card-body" style="height:400px;">
+
+                                                <iframe src="@ViewBag.InputFrameContent" style="width:100%; height:100%;"></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header" style="height:45px;">
+                                                <button class="w3-button demo" onclick="currentDiv(1)">S1</button>
+                                                <button class="w3-button demo" onclick="currentDiv(2)">S2</button>
+                                                <button class="w3-button demo" onclick="currentDiv(3)">S3</button>
+                                                <button class="w3-button demo" onclick="currentDiv(4)">S4</button>
+                                                <button class="w3-button demo" onclick="currentDiv(5)">S5</button>
+                                                <button class="w3-button demo" onclick="currentDiv(6)">S6</button>
+                                                <button class="w3-button demo" onclick="currentDiv(7)">S7</button>
+                                                <button class="w3-button demo" onclick="currentDiv(8)">S8</button>
+                                                <button class="w3-button demo" onclick="currentDiv(9)">S9</button>
+                                            </div><!-- /# preview card -->
+                                            <div class="card-body" style="height:335px;" id="testyk">
+                                                <iframe class="mySlides" src="@ViewBag.InputFrameContent1" style="width:100%; height:100%;"></iframe>
+                                                <iframe class="mySlides" src="@ViewBag.InputFrameContent2" style="width:100%; height:100%;"></iframe>
+                                                <iframe class="mySlides" src="@ViewBag.InputFrameContent3" style="width:100%; height:100%;"></iframe>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <strong>Converted File</strong>
+                                                <small>
+                                                    Black and white image
+                                                </small>
+                                            </div>
+                                            <div class="card-body" style="height:800px;">
+                                                <iframe src="@ViewBag.OutputFrameContent" style="width:100%; height:100%;"></iframe>
+                                            </div>
+                                        </div><!-- output card -->
+
+                                    </div> <!-- in/out Block -->
+
+                                </div>
+
+                                <div class="tab-pane fade" id="default-nav-profile" role="tabpanel" aria-labelledby="default-nav-profile-tab">
+
+                                    <div class="x_title">
+                                        <h4>Showing thumbnails of all training images</h4>
+                                    </div>
+
+                                    <div class="x_content">
+                                        <div class="row">
+
+                                            <div class="col-md-55">
+                                                <div class="thumbnail">
+                                                    <div class="image view view-first">
+                                                        <img style="width: 100%; display: block;" src="~/images/admin.jpg" alt="image">
+                                                        <div class="mask">
+                                                            <p>Your Text</p>
+                                                            <div class="tools tools-bottom">
+                                                                <a href="#"><i class="fa fa-link"></i></a>
+                                                                <a href="#"><i class="fa fa-pencil"></i></a>
+                                                                <a href="#"><i class="fa fa-times"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="caption">
+                                                        <p>Image1</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-55">
+                                                <div class="thumbnail">
+                                                    <div class="image view view-first">
+                                                        <img style="width: 100%; display: block;" src="~/images/docmcap_logo.png" alt="image">
+                                                        <div class="mask no-caption">
+                                                            <div class="tools tools-bottom">
+                                                                <a href="#"><i class="fa fa-link"></i></a>
+                                                                <a href="#"><i class="fa fa-pencil"></i></a>
+                                                                <a href="#"><i class="fa fa-times"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="caption">
+                                                        <p>
+                                                            <strong>Image Name</strong>
+                                                        </p>
+                                                        <p>Image2</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="default-nav-notes" role="tabpanel" aria-labelledby="default-nav-notes-tab">
+                                    <p>Some description here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .row -->
+
+    </div><!-- .animated -->
+</div><!-- .content -->
+
+<script>
+    var myIndex = 0;
+    var autoRun = false;
+    var flag = '@ViewData["flag"]';
+    carousel();
+
+    function currentDiv(n) {
+        autoRun = false;
+        myIndex = n;
+        carousel();
+    }
+
+    function carousel() {
+        if (flag) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            addToCart(myIndex);
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            if (autoRun)
+                setTimeout(carousel, 2000); // Change image every 2 seconds
+        }
+        else {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+
+        }
+    }
+
+    function addToCart(id) {
+        $.ajax({
+            url: '@Url.Action("method","Home")',
+            data: { id: id },
+            success: function (data) {
+                //call is successfully completed and we got result in data
+                var x = document.getElementsByClassName("mySlides");
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                //some errror, some show err msg to user and log the error
+                alert(xhr.responseText);
+
+            }
+        });
+    }
+</script>
